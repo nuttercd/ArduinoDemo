@@ -1,26 +1,21 @@
-
-
 #include <SPI.h>
 #include <WiFiNINA.h>
-#include <Ethernet.h>
 #include <PubSubClient.h>
 
-///////please enter your sensitive data in the Secret tab/arduino_secrets.h
-char ssid[] = "uugwifi";        // your network SSID (name)
-char pass[] = "uugpassword";    // your network password (use for WPA, or use as key for WEP)
+//Enter your details here
+const char ssid[] = "uugwifi";        // your network SSID (name)
+const char pass[] = "uugpassword";    // your network WPA password
+const char clientName[] = "client1";  // your MQTT client name
+const char topicName[] = "inTopic";   // your MQTT topic
 
 int status = WL_IDLE_STATUS;
 int pinOut = 2;
-// if you don't want to use DNS (and reduce your sketch size)
-// use the numeric IP instead of the name for the server:
 IPAddress server(192, 168, 88, 2);
 
 // Initialize the Ethernet client library
 // with the IP address and port of the server
-// that you want to connect to (port 80 is default for HTTP):
 WiFiClient ethClient;
 PubSubClient psclient(ethClient);
-//PubSubClient psclient(server, 1883, callback, client);
 
 void setup() {
   pinMode(pinOut, OUTPUT);
@@ -46,7 +41,6 @@ void setup() {
   while (status != WL_CONNECTED) {
     Serial.print("Attempting to connect to SSID: ");
     Serial.println(ssid);
-    // Connect to WPA/WPA2 network. Change this line if using open or WEP network:
     status = WiFi.begin(ssid, pass);
 
     // wait 10 seconds for connection:
@@ -85,33 +79,19 @@ void printWiFiStatus() {
   Serial.println(" dBm");
 }
 
-//void callback(char* topic, byte* payload, unsigned int length) {
-//  Serial.print("Message arrived [");
-//  Serial.print(topic);
-//  Serial.print("] ");
-//  for (int i=0;i<length;i++) {
-//    Serial.print((char)payload[i]);
-//  }
-//  Serial.println();
-//}
-
 void callback(char* topic, byte* payload, unsigned int length) {
-  Serial.print("Message arrived [");
-  Serial.print(topic);
-  Serial.print("] ");
-  for (int i=0;i<length;i++) {
-    if((char)payload[i] == '-') {
+  Serial.println("Message arrived");
+  for (int i = 0; i < length; i++) {
+    if ((char)payload[i] == '-') {
       digitalWrite(pinOut, HIGH);
       delay(1000);
       digitalWrite(pinOut, LOW);
-    } else if((char)payload[i] == '.') {
+    } else if ((char)payload[i] == '.') {
       digitalWrite(pinOut, HIGH);
       delay(250);
       digitalWrite(pinOut, LOW);
-    }  
-//    Serial.print((char)payload[i]);
+    }
   }
-  Serial.println();
 }
 
 void reconnect() {
@@ -120,15 +100,11 @@ void reconnect() {
 
     Serial.print("Attempting MQTT connection...");
     // Attempt to connect
-    if (psclient.connect("ReceiveClient")) {
+    if (psclient.connect(clientName)) {
       Serial.println("connected");
-      // Once connected, publish an announcement...
-      psclient.publish("outTopic","hello world");
       // ... and resubscribe
-      psclient.subscribe("inTopic");
+      psclient.subscribe(topicName);
     } else {
-      Serial.print("failed, rc=");
-      Serial.print(psclient.state());
       Serial.println(" try again in 5 seconds");
       // Wait 5 seconds before retrying
       delay(5000);

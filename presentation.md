@@ -32,7 +32,7 @@ marp: true
 
 # Installing Wifi Tools
 
-- Studio > Sketch > Include Library > Manage Library > Search for "wifinina" > Install WifiNINA 
+- Studio > Sketch > Include Library > Manage Library > Search for "wifinina" > Install WifiNINA  
 
 - Search for "pubsubclient" > Install PubSubClient by Nick
 
@@ -41,11 +41,15 @@ marp: true
 
 # What is MQTT
 
+The MQTT is a protocol that defines two types of network entities: a message broker and a number of clients. An MQTT broker is a server that receives all messages from the clients and then routes the messages to the appropriate destination clients. A MQTT client is any device (The Arduinos) that runs an MQTT library and connects to an MQTT broker (The Raspberry Pi) over a network.
 
+Clients have their own client IDs. You tell MQTT your name, so it knows what messages the PI have already told you. You could potentially add a new Arudino to connect and get all the old messages.
+
+In order to receive messages the Arudinos must subscribe to a "topic" that you have provided the MQTT. To send a message you publish into the topic.
 
 ---
 
-# Bulding the Receiver Board
+# Building the Receiver Board
 
 - You will be given a Arduino already connected to a breadboard, a cable, a 68 ohm resistor (brown), a LED, and a micro usb cord.
 

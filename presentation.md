@@ -1,6 +1,9 @@
 ---
 marp: true
 ---
+<!-- backgroundColor: black -->
+<!-- color: white -->
+
 # UUG Arduino Demo - Morse Code
 
 ---
@@ -79,11 +82,15 @@ marp: true
 
 ---
 
-# Demo #1 - Make The LED Blink
+# Demo #1 - Turn LED On/Off
 
 ---
 
-```const int mypin = 2;
+<!-- _color: black -->
+
+```C
+
+const int mypin = 2;
 
 void setup() {
   pinMode(mypin, OUTPUT);
@@ -95,39 +102,58 @@ void loop() {
   digitalWrite(mypin, LOW);    // turn the LED off by making the voltage LOW
   delay(1000);                       // wait for a second
 }
+
 ```
 
 ---
 
-# Demo #2 - Use The Button to Say "Short" and "Long"
+# Demo #2 - Turn the LED On/Off using the button
 
 ---
+<!-- backgroundColor: black -->
+<!-- _color: black -->
 
-```const int buttonPin = 3;
+
+```C
+
+const int buttonPin = 3;
+
 int buttonState = 0;
+
+int count = 0;
+
 // the setup function runs once when you press reset or power the board
 void setup() {
   // initialize digital pin LED_BUILTIN as an output.
   pinMode(LED_BUILTIN, OUTPUT);
   pinMode(buttonPin, INPUT);
+  Serial.begin(9600);
 }
+
 // the loop function runs over and over again forever
 void loop() {
   buttonState = digitalRead(buttonPin);
 
   // check if the pushbutton is pressed. If it is, the buttonState is HIGH:
   if (buttonState == HIGH) {
-    // turn LED on:
-    digitalWrite(LED_BUILTIN, HIGH);
-    delay(1000);
-    digitalWrite(LED_BUILTIN, LOW);
+    count++;
   }
+    else {
+      if (count > 25){
+        Serial.println("long");
+      } else if (count > 1 && count < 25){
+        Serial.println("short");
+      }
+      count = 0;
+    }
+    delay(10);  
 }
-```
 
+```
 
 ---
 
 # Your mission if you choose to accept it...
 
 - Send a message using Morse code, but actually send the letters instead of "short" and "long"
+

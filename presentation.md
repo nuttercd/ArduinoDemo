@@ -26,6 +26,22 @@ marp: true
 - When you plug in the board, make sure your port is Nano 33. Tools > Port.
 
 ---
+
+# Installing Wifi Tools
+
+- Studio > Sketch > Include Library > Manage Library > Search for "wifinina" > Install WifiNINA 
+
+- Search for "pubsubclient" > Install PubSubClient by Nick
+
+
+---
+
+# What is MQTT
+
+
+
+---
+
 # Bulding the Receiver Board
 
 - You will be given a Arduino already connected to a breadboard, a cable, a 68 ohm resistor (brown), a LED, and a micro usb cord.
@@ -37,12 +53,9 @@ marp: true
 
  1. Plug one end of resister into D2(row 20, column A on breadboard) and one end into row 10, column A, on breadboard.
 
----
-![bg right:40%](Diagrams/NANO33IoT.png)
+ 2. Plug the longer side of the LED into row 10, column B, next to the resistor.
 
-2. Plug the longer side of the LED into row 10, column B, next to the resistor.
-
-3. Plug the cable into row 9, column C, next to the LED and the other end into row 19 next the GND Port (Accented white on the actual Arduino)
+ 3. Plug the cable into row 9, column C, next to the LED and the other end into row 19 next the GND Port (Accented white on the actual Arduino)
 
 ---
 
@@ -50,20 +63,71 @@ marp: true
 
 - You will be given a Arduino already connected to a breadboard, two cables, a 10k ohm resistor (turquoise), a button, and a micro usb cord.
 
-- Follow these next steps exactly or else I will have to go find a fire extinguisher.
+- Again don't mess this up. You will cause a fire, and we don't want fires.
 
 ---
 
  ![bg right:40%](Diagrams/NANO33IoT.png)
 
-1. Plug the button into row 5 and 7 across the crease or as Ripley calls it "The Pit of Doom" "Pit of Despair" or "The Canyon". 
-"Don't quote me in there" - Ripley
+1. Plug the button into row 5 and 7 across the crease or as Ripley calls it "The Crevice of Doom" "Pit of Despair" or "The Canyon". "Don't quote me in there" - Ripley
+
+2. Plug resistor into row 19, column A, next the GND Port (Accented white on the actual Arduino) and row 5, column A
+
+3. Plug one cable into row 21, column B and row 5, column B next to the resistor
+
+4. On the opposite side, plug your 2nd cable into row 29, column J next to the +3V3 port and row 7, column J.
 
 ---
 
-![bg right:40%](Diagrams/NANO33IoT.png)
+# Demo #1 - Make The LED Blink
+
+---
+
+```const int mypin = 2;
+
+void setup() {
+  pinMode(mypin, OUTPUT);
+}
+
+void loop() {
+  digitalWrite(mypin, HIGH);   // turn the LED on (HIGH is the voltage level)
+  delay(1000);                       // wait for a second
+  digitalWrite(mypin, LOW);    // turn the LED off by making the voltage LOW
+  delay(1000);                       // wait for a second
+}
+```
+
+---
+
+# Demo #2 - Use The Button to Say "Short" and "Long"
+
+---
+
+```const int buttonPin = 3;
+int buttonState = 0;
+// the setup function runs once when you press reset or power the board
+void setup() {
+  // initialize digital pin LED_BUILTIN as an output.
+  pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(buttonPin, INPUT);
+}
+// the loop function runs over and over again forever
+void loop() {
+  buttonState = digitalRead(buttonPin);
+
+  // check if the pushbutton is pressed. If it is, the buttonState is HIGH:
+  if (buttonState == HIGH) {
+    // turn LED on:
+    digitalWrite(LED_BUILTIN, HIGH);
+    delay(1000);
+    digitalWrite(LED_BUILTIN, LOW);
+  }
+}
+```
 
 
-2. Plug resistor into row 19, column A, next the GND Port (Accented white on the actual Arduino) and row 5, column A
-3. Plug one cable into row 21, column B and row 5, column B next to the resistor
-4. On the opposite side, plug your 2nd cable into row 29, column J next to the +3V3 port and row 7, column J.
+---
+
+# Your mission if you choose to accept it...
+
+- Send a message using Morse code, but actually send the letters instead of "short" and "long"

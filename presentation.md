@@ -41,7 +41,7 @@ marp: true
 
 # What is MQTT
 
-The MQTT is a protocol that defines two types of network entities: a message broker and a number of clients. An MQTT broker is a server that receives all messages from the clients and then routes the messages to the appropriate destination clients. A MQTT client is any device (The Arduinos) that runs an MQTT library and connects to an MQTT broker (The Raspberry Pi) over a network.
+MQTT (MQ Telemetry Transport) is a protocol that defines two types of network entities: a message broker and a number of clients. An MQTT broker is a server that receives all messages from the clients and then routes the messages to the appropriate destination clients. A MQTT client is any device (The Arduinos) that runs an MQTT library and connects to an MQTT broker (The Raspberry Pi) over a network.
 
 Clients have their own client IDs. You tell MQTT your name, so it knows what messages the PI have already told you. You could potentially add a new Arudino to connect and get all the old messages.
 
@@ -117,8 +117,7 @@ void loop() {
 <!-- backgroundColor: black -->
 <!-- _color: black -->
 
-
-```C
+``` C
 
 const int buttonPin = 3;
 
@@ -159,5 +158,4 @@ void loop() {
 
 # Your mission if you choose to accept it...
 
-- Send a message using Morse code, but actually send the letters instead of "short" and "long"
-
+ Send a message using Morse code, but actually send the letters instead of "short" and "long"

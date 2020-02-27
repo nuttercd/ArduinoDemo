@@ -17,6 +17,20 @@ IPAddress server(192, 168, 88, 2);
 WiFiClient ethClient;
 PubSubClient psclient(ethClient);
 
+blinkLong(){
+  digitalWrite(pinOut, HIGH);
+  delay(1000);
+  digitalWrite(pinOut, LOW);
+  sleep(100);
+}
+
+blinkShort(){
+  digitalWrite(pinOut, HIGH);
+  delay(250);
+  digitalWrite(pinOut, LOW);
+  sleep(100);
+}
+
 void setup() {
   pinMode(pinOut, OUTPUT);
   //Initialize serial and wait for port to open:

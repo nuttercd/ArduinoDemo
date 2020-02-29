@@ -14,7 +14,7 @@ marp: true
 
 - If you are more comfortable coding, go to the sending team
 
-- Designate a person to code and a person to code the Arduino
+- Designate a person to assemble the Arduino and a person to code the Arduino
 
 - If you are the person coding, go to www.github.com/nuttercd/ArduinoDemo
 
@@ -34,23 +34,20 @@ marp: true
 
 # Installing Wifi Tools
 
-- Studio > Sketch > Include Library > Manage Library > Search for "wifinina" > Install WifiNINA  
+- Studio > Sketch > Include Library > Manage Library > Search for "wifinina" > Install WifiNINA by Arduino
 
-- Search for "pubsubclient" > Install PubSubClient by Nick
-
+- Search for "pubsubclient" > Install PubSubClient by Nick O'Leary
 
 ---
 
 # What is MQTT
 
-MQTT (MQ Telemetry Transport) is a protocol that defines two types of network entities: a message broker and a number of clients. An MQTT broker is a server that receives all messages from the clients and then routes the messages to the appropriate destination clients. A MQTT client is any device (The Arduinos) that runs an MQTT library and connects to an MQTT broker (The Raspberry Pi) over a network.
+MQTT (Message Queuing Telemetry Transport) is a protocol that defines two types of network entities: a message broker and a number of clients. An MQTT broker is a server that receives all messages from clients and then routes the messages to the appropriate destination clients. A MQTT client is any device (the Arduinos) that runs an MQTT library and connects to an MQTT broker (the Raspberry Pi) over a network.
 
 ---
-Clients have their own client IDs. You tell MQTT your name, so it knows what messages the PI have already told you. You could potentially add a new Arudino to connect and get all the old messages.
+Clients have their own client IDs. You tell MQTT your name, so it knows what messages the Pi has already sent you. You could potentially add a new Arduino and get all the old messages.
 
----
-
-In order to receive messages the Arudinos must subscribe to a "topic" that you have provided the MQTT. To send a message you publish into the topic.
+To send a message you publish into a topic. In order to receive messages, the Arduinos must subscribe to that topic you have provided MQTT.
 
 ---
 
@@ -63,11 +60,11 @@ In order to receive messages the Arudinos must subscribe to a "topic" that you h
 ---
 ![bg right:40%](Diagrams/NANO33IoT.png)
 
- 1. Plug one end of resister into D2(row 20, column A on breadboard) and one end into row 10, column A, on breadboard.
+ 1. Plug one end of resister into the D2 pin (row 20, column A on breadboard) and one end into row 10, column A, on breadboard.
 
  2. Plug the longer side of the LED into row 10, column B, next to the resistor.
 
- 3. Plug the wire into row 9, column C, next to the LED and the other end into row 19 next the GND Port (Accented white on the actual Arduino)
+ 3. Plug the wire into row 9, column C, next to the LED and the other end into row 19 next the GND port (accented white on the actual Arduino).
 
 ---
 
@@ -83,7 +80,7 @@ In order to receive messages the Arudinos must subscribe to a "topic" that you h
 
 1. Plug the button into row 5 and 7 across the crease or as Ripley calls it "The Crevice of Doom" "Pit of Despair" or "The Canyon". "Don't quote me in there" - Ripley
 
-2. Plug resistor into row 19, column A, next the GND Port (Accented white on the actual Arduino) and row 5, column A
+2. Plug the resistor into row 19, column A, next the GND port (accented white on the actual Arduino) and row 5, column A
 
 3. Plug one wire into row 21, column B and row 5, column B next to the resistor
 
@@ -91,7 +88,7 @@ In order to receive messages the Arudinos must subscribe to a "topic" that you h
 
 ---
 
-# Demo #1 - Turn LED On/Off (Receive)
+# Demo #1 - Turn LED On/Off (Receive teams)
 
 Use the LED_test example.
 
@@ -109,16 +106,16 @@ void setup() {
 
 void loop() {
   digitalWrite(mypin, HIGH);   // turn the LED on (HIGH is the voltage level)
-  delay(1000);                       // wait for a second
+  delay(1000);                 // wait for a second
   digitalWrite(mypin, LOW);    // turn the LED off by making the voltage LOW
-  delay(1000);                       // wait for a second
+  delay(1000);                 // wait for a second
 }
 
 ```
 
 ---
 
-# Demo #2 - Turn the LED On/Off using the button (Send)
+# Demo #2 - Turn the built-in LED On/Off using the button (Send Teams)
 
  Use the button_test example.
 
@@ -155,7 +152,7 @@ void loop() {
 
 ---
 
-# Demo 3 - Print "Short" and "Long" (Send)
+# Demo 3 - Print "Short" and "Long" (Send Teams)
 
  Use the short_long_button_test example.
 
@@ -183,14 +180,14 @@ void setup() {
 void loop() {
   buttonState = digitalRead(buttonPin);
 
-  // check if the pushbutton is pressed. If it is, the buttonState is HIGH:
+  // check if the button is pressed. If it is, the buttonState is HIGH:
   if (buttonState == HIGH) {
     count++;
   }
     else {
-      if (count > 25){
+      if (count > 25) {
         Serial.println("long");
-      } else if (count > 1 && count < 25){
+      } else if (count > 1 && count < 25) {
         Serial.println("short");
       }
       count = 0;
@@ -202,17 +199,19 @@ void loop() {
 
 ---
 
-# Demo 4 - Connect to the wireless (Both)
+# Demo 4 - Connect to the wireless (Both Teams)
 
 There are two different examples. The send team will use sendWifi and the receive team will use receiveWifi.
 
 ---
 
-Now in order to do the next part of the presentation you must go into your code and change your Topic Name. Team 1's topic name is Team1Send, and Team 2's name is ... Team2Send. These have to be shared between teams. The Client Name for Team 1 is Team1Receive and for Team 2 it is Team2Receive.
+Now in order to do the next part of the presentation you must go into your code and change your topic and client name. Team 1's topic name is Team1, and Team 2's name is ... Team2. These have to be shared between teams.
+
+The client names should be Team1Send, Team1Receive, Team2Send, and Team2Receive.
 
 ---
 
-# Your mission if you choose to accept it...
+# Your mission, if you choose to accept it...
 
  Send a message using Morse code, but actually send the letters instead of "short" and "long"
 
@@ -221,6 +220,3 @@ Now in order to do the next part of the presentation you must go into your code 
 
 ![bg left: 97%](Diagrams/MorseCodeTree.jpg)
 ![bg right: 80%](Diagrams/MorseCode.png)
-
-
-

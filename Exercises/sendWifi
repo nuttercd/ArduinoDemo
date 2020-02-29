@@ -5,8 +5,8 @@
 //Enter your details here
 const char ssid[] = "uugwifi";        // your network SSID (name)
 const char pass[] = "uugpassword";    // your network WPA password
-const char clientName[] = "client2";  // your MQTT client name
-const char topicName[] = "inTopic";   // your MQTT topic
+const char clientName[] = "CHANGEME";  // your MQTT client name
+const char topicName[] = "CHANGEME";   // your MQTT topic
 
 int status = WL_IDLE_STATUS;
 int buttonPin = 3;

@@ -5,8 +5,8 @@
 //Enter your details here
 const char ssid[] = "uugwifi";        // your network SSID (name)
 const char pass[] = "uugpassword";    // your network WPA password
-const char clientName[] = "client1";  // your MQTT client name
-const char topicName[] = "inTopic";   // your MQTT topic
+const char clientName[] = "CHANGEME";  // your MQTT client name
+const char topicName[] = "CHANGME";   // your MQTT topic
 
 int status = WL_IDLE_STATUS;
 int pinOut = 2;
@@ -97,13 +97,9 @@ void callback(char* topic, byte* payload, unsigned int length) {
   Serial.println("Message arrived");
   for (int i = 0; i < length; i++) {
     if ((char)payload[i] == '-') {
-      digitalWrite(pinOut, HIGH);
-      delay(1000);
-      digitalWrite(pinOut, LOW);
+      blinkLong();
     } else if ((char)payload[i] == '.') {
-      digitalWrite(pinOut, HIGH);
-      delay(250);
-      digitalWrite(pinOut, LOW);
+      blinkShort();
     }
   }
 }

@@ -74,10 +74,10 @@ void loop() {
   else {
     if (count > 25) {
       Serial.println("long");
-      psclient.publish("inTopic", "-");
+      psclient.publish(topicName, "-");
     } else if (count > 1 && count < 25) {
       Serial.println("short");
-      psclient.publish("inTopic", ".");
+      psclient.publish(topicName, ".");
 
     }
     count = 0;
